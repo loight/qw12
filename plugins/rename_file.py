@@ -47,7 +47,7 @@ async def rename_doc(bot, update):
         cmd, file_name = update.text.split(" ", 1)
         description = Translation.CUSTOM_CAPTION_UL_FILE
         rfhf = random_char(5)
-        download_location = Config.DOWNLOAD_LOCATION + "/" + f'{rfhf}' + "/"
+        download_location = Config.DOWNLOAD_LOCATION + "/" + f'{str(update.message_id)}' + "/"
         a = await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.DOWNLOAD_FILE,
@@ -133,11 +133,11 @@ async def rename_doc(bot, update):
                 shutil.rmtree(download_location)
             except:
                 pass
-            await bot.edit_message_text(
-                text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
+            await bot.delete_messages(
+                # text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
                 chat_id=update.chat.id,
                 message_id=up.message_id,
-                disable_web_page_preview=True
+                # disable_web_page_preview=True
             )
     else:
         await bot.send_message(
